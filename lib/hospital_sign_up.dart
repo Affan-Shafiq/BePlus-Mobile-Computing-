@@ -28,7 +28,6 @@ class _HospitalSignUpScreenState extends State<HospitalSignUpScreen> {
       return;
     }
 
-    // Check if hospital name already exists
     final hospitalNameQuerySnapshot = await _hospitalRequestsCollection
         .where('name', isEqualTo: _hospitalNameController.text)
         .get();
@@ -47,15 +46,11 @@ class _HospitalSignUpScreenState extends State<HospitalSignUpScreen> {
       'phoneNo': _phoneNoController.text,
     });
 
-    // Show a snackbar for successful sign-up
     ScaffoldMessenger.of(context).showSnackBar(
       const SnackBar(content: Text('Request Forwarded to Admin')),
     );
 
-    Navigator.push(
-      context,
-      MaterialPageRoute(builder: (context) => MainScreen()),
-    );
+    Navigator.push(context, MaterialPageRoute(builder: (context) => MainScreen()),);
   }
 
   @override

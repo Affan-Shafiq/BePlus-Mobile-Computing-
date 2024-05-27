@@ -139,7 +139,9 @@ class _BloodBankHomeScreenState extends State<BloodBankHomeScreen> {
           label: Text(
             bloodType,
             style: TextStyle(
-              color: _selectedBloodTypes[appointmentId] == bloodType ? const Color.fromRGBO(144, 50, 60, 1) : const Color.fromRGBO(249, 234, 225, 1),
+              color: _selectedBloodTypes[appointmentId] == bloodType
+                  ? const Color.fromRGBO(144, 50, 60, 1)
+                  : const Color.fromRGBO(249, 234, 225, 1),
             ),
           ),
           selected: _selectedBloodTypes[appointmentId] == bloodType,
@@ -250,11 +252,9 @@ class _BloodBankHomeScreenState extends State<BloodBankHomeScreen> {
   }
 
   Future<void> _approveRequest(String requestId, String bloodType, String hospitalName) async {
-    // Retrieve blood information from BloodStored collection
     final bloodQuerySnapshot = await FirebaseFirestore.instance.collection('BloodStored').where('bloodType', isEqualTo: bloodType).limit(1).get();
     final bloodDoc = bloodQuerySnapshot.docs.first;
 
-    // Move blood from BloodStored to BloodInTransit
     await FirebaseFirestore.instance.collection('BloodInTransit').add({
       'hospitalName': hospitalName,
       'bloodType': bloodDoc['bloodType'],
@@ -264,10 +264,8 @@ class _BloodBankHomeScreenState extends State<BloodBankHomeScreen> {
       'collectionPoint': widget.bloodBankName,
     });
 
-    // Delete blood from BloodStored
     await bloodDoc.reference.delete();
 
-    // Delete the blood request from BloodRequests collection
     await FirebaseFirestore.instance.collection('BloodRequests').doc(requestId).delete();
   }
 }

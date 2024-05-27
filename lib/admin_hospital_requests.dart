@@ -97,15 +97,13 @@ class HospitalRequestsPage extends StatelessWidget {
   }
 
   Future<void> _approveHospital(BuildContext context, String requestId, String username, String password, String hospitalName, String phoneNo) async {
-    // Save data to 'RegisteredHospitals' collection
     await FirebaseFirestore.instance.collection('RegisteredHospitals').add({
       'username': username,
       'password': password,
-      'hospitalName': hospitalName,
+      'name': hospitalName,
       'phoneNo': phoneNo,
     });
 
-    // Delete the request from 'HospitalRequests' collection
     await FirebaseFirestore.instance.collection('HospitalRequests').doc(requestId).delete();
 
     ScaffoldMessenger.of(context).showSnackBar(
@@ -114,7 +112,6 @@ class HospitalRequestsPage extends StatelessWidget {
   }
 
   Future<void> _disapproveHospital(BuildContext context, String requestId) async {
-    // Delete the request from 'HospitalRequests' collection
     await FirebaseFirestore.instance.collection('HospitalRequests').doc(requestId).delete();
 
     ScaffoldMessenger.of(context).showSnackBar(

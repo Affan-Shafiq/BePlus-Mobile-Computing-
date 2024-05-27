@@ -21,7 +21,6 @@ class _HospitalSignInScreenState extends State<HospitalSignInScreen> {
 
     if (querySnapshot.docs.isNotEmpty) {
       final hospitalName = querySnapshot.docs.first['name'];
-      // Show a snackbar for successful sign-in
       ScaffoldMessenger.of(context).showSnackBar(
         const SnackBar(content: Text('Sign-in successful')),
       );
@@ -29,7 +28,6 @@ class _HospitalSignInScreenState extends State<HospitalSignInScreen> {
       Navigator.push(context, MaterialPageRoute(builder: (context) => HospitalHomePage(hospitalName: hospitalName)),);
 
     } else {
-      // Show a snackbar if sign-in fails
       ScaffoldMessenger.of(context).showSnackBar(
         const SnackBar(content: Text('Sign-in failed: Incorrect username or password')),
       );

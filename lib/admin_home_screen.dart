@@ -2,6 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'admin_hospital_requests.dart';
 import 'admin_storage_point_requests.dart';
+import 'admin_registered_hospitals.dart';
 
 class AdminHomeScreen extends StatefulWidget {
   @override
@@ -17,6 +18,7 @@ class _AdminHomeScreenState extends State<AdminHomeScreen> {
   Map<String, int> _bloodStoredCount = {};
   int _hospitalRequestsCount = 0;
   int _storagePointRequestsCount = 0;
+  List<Map<String, dynamic>> _hammadData = [];
 
   @override
   void initState() {
@@ -25,7 +27,6 @@ class _AdminHomeScreenState extends State<AdminHomeScreen> {
   }
 
   Future<void> _fetchCounts() async {
-    // Fetch the number of appointments
     final appointmentsSnapshot = await FirebaseFirestore.instance.collection('Appointments').get();
     final donorsSnapshot = await FirebaseFirestore.instance.collection('Donors').get();
     final collectionPointsSnapshot = await FirebaseFirestore.instance.collection('CollectionPoints').get();
@@ -34,6 +35,7 @@ class _AdminHomeScreenState extends State<AdminHomeScreen> {
     final hospitalRequestsSnapshot = await FirebaseFirestore.instance.collection('HospitalRequests').get();
     final storagePointRequestsSnapshot = await FirebaseFirestore.instance.collection('StoragePointRequests').get();
     final bloodStoredSnapshot = await FirebaseFirestore.instance.collection('BloodStored').get();
+    final hammadSnapshot = await FirebaseFirestore.instance.collection('Hammad').get();
 
     final Map<String, int> bloodTypeCounts = {};
     for (var doc in bloodStoredSnapshot.docs) {
@@ -45,6 +47,13 @@ class _AdminHomeScreenState extends State<AdminHomeScreen> {
       }
     }
 
+    final List<Map<String, dynamic>> hammadData = hammadSnapshot.docs.map((doc) {
+      return {
+        'cnic': doc['cnic'],
+        'gpa': doc['gpa'],
+      };
+    }).toList();
+
     setState(() {
       _appointmentsCount = appointmentsSnapshot.size;
       _donorsCount = donorsSnapshot.size;
@@ -54,6 +63,7 @@ class _AdminHomeScreenState extends State<AdminHomeScreen> {
       _hospitalRequestsCount = hospitalRequestsSnapshot.size;
       _storagePointRequestsCount = storagePointRequestsSnapshot.size;
       _bloodStoredCount = bloodTypeCounts;
+      _hammadData = hammadData;
     });
   }
 
@@ -85,10 +95,11 @@ class _AdminHomeScreenState extends State<AdminHomeScreen> {
               _buildSummaryCard('Donors', _donorsCount.toString()),
               _buildSummaryCard('Collection Points', _collectionPointsCount.toString()),
               _buildSummaryCard('Storage Points', _storagePointsCount.toString()),
-              _buildSummaryCard('Registered Hospitals', _registeredHospitalsCount.toString()),
+              _buildInteractiveSummaryCard('Registered Hospitals', _registeredHospitalsCount.toString(), RegisteredHospitalPage()),
               _buildInteractiveSummaryCard('Hospital Requests', _hospitalRequestsCount.toString(), HospitalRequestsPage()),
               _buildInteractiveSummaryCard('Storage Point Requests', _storagePointRequestsCount.toString(), StoragePointRequestsPage()),
               _buildBloodStoredCard(),
+              _buildHammadCard(),
             ],
           ),
         ),
@@ -98,7 +109,7 @@ class _AdminHomeScreenState extends State<AdminHomeScreen> {
 
   Widget _buildSummaryCard(String title, String count) {
     return Card(
-      color: Color.fromRGBO(249, 234, 225, 1),
+      color: const Color.fromRGBO(249, 234, 225, 1),
       margin: const EdgeInsets.symmetric(vertical: 8.0),
       child: ListTile(
         title: Text(
@@ -119,7 +130,7 @@ class _AdminHomeScreenState extends State<AdminHomeScreen> {
 
   Widget _buildInteractiveSummaryCard(String title, String count, Widget destinationPage) {
     return Card(
-      color: Color.fromRGBO(249, 234, 225, 1),
+      color: const Color.fromRGBO(249, 234, 225, 1),
       margin: const EdgeInsets.symmetric(vertical: 8.0),
       child: ListTile(
         title: Text(
@@ -147,7 +158,7 @@ class _AdminHomeScreenState extends State<AdminHomeScreen> {
 
   Widget _buildBloodStoredCard() {
     return Card(
-      color: Color.fromRGBO(249, 234, 225, 1),
+      color: const Color.fromRGBO(249, 234, 225, 1),
       margin: const EdgeInsets.symmetric(vertical: 8.0),
       child: ListTile(
         title: const Text(
@@ -163,6 +174,27 @@ class _AdminHomeScreenState extends State<AdminHomeScreen> {
             );
           }).toList(),
         ),
+      ),
+    );
+  }
+
+  Widget _buildHammadCard() {
+    return Card(
+      color: const Color.fromRGBO(249, 234, 225, 1),
+      margin: const EdgeInsets.symmetric(vertical: 8.0),
+      child: Column(
+        children: _hammadData.map((data) {
+          return ListTile(
+            title: Text(
+              'CNIC: ${data['cnic']}',
+              style: const TextStyle(color: Color.fromRGBO(144, 50, 60, 1)),
+            ),
+            subtitle: Text(
+              'GPA: ${data['gpa']}',
+              style: const TextStyle(color: Color.fromRGBO(144, 50, 60, 1)),
+            ),
+          );
+        }).toList(),
       ),
     );
   }

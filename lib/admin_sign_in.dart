@@ -19,7 +19,6 @@ class _AdminSignInScreenState extends State<AdminSignInScreen> {
         .get();
 
     if (querySnapshot.docs.isNotEmpty) {
-      // Show a snackbar for successful sign-in
       ScaffoldMessenger.of(context).showSnackBar(
         const SnackBar(content: Text('Sign-in successful')),
       );
@@ -29,7 +28,6 @@ class _AdminSignInScreenState extends State<AdminSignInScreen> {
         MaterialPageRoute(builder: (context) => AdminHomeScreen()),
       );
     } else {
-      // Show a snackbar if sign-in fails
       ScaffoldMessenger.of(context).showSnackBar(
         const SnackBar(content: Text('Sign-in failed: Incorrect username or password')),
       );

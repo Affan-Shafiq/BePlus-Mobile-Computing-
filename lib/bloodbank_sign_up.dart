@@ -28,7 +28,6 @@ class _BloodBankSignUpScreenState extends State<BloodBankSignUpScreen> {
       return;
     }
 
-    // Check if hospital name already exists
     final hospitalNameQuerySnapshot = await _hospitalRequestsCollection
         .where('name', isEqualTo: _hospitalNameController.text)
         .get();
@@ -47,7 +46,6 @@ class _BloodBankSignUpScreenState extends State<BloodBankSignUpScreen> {
       'phoneNo': _phoneNoController.text,
     });
 
-    // Show a snackbar for successful sign-up
     ScaffoldMessenger.of(context).showSnackBar(
       const SnackBar(content: Text('Request Forwarded to Admin')),
     );

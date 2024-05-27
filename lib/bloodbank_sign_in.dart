@@ -21,7 +21,6 @@ class _BloodBankSignInScreenState extends State<BloodBankSignInScreen> {
 
     if (querySnapshot.docs.isNotEmpty) {
       final bloodBankName = querySnapshot.docs.first['name'];
-      // Show a snackbar for successful sign-in
       ScaffoldMessenger.of(context).showSnackBar(
         const SnackBar(content: Text('Sign-in successful')),
       );
@@ -29,7 +28,6 @@ class _BloodBankSignInScreenState extends State<BloodBankSignInScreen> {
       Navigator.push(context, MaterialPageRoute(builder: (context) => BloodBankHomeScreen(bloodBankName: bloodBankName)),);
 
     } else {
-      // Show a snackbar if sign-in fails
       ScaffoldMessenger.of(context).showSnackBar(
         const SnackBar(content: Text('Sign-in failed: Incorrect username or password')),
       );

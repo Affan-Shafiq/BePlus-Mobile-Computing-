@@ -97,7 +97,6 @@ class StoragePointRequestsPage extends StatelessWidget {
   }
 
   Future<void> _approveStoragePoint(BuildContext context, String requestId, String username, String password, String storagePointName, String phoneNo) async {
-    // Save data to 'StoragePoints' collection
     await FirebaseFirestore.instance.collection('StoragePoints').add({
       'username': username,
       'password': password,
@@ -105,7 +104,6 @@ class StoragePointRequestsPage extends StatelessWidget {
       'phoneNo': phoneNo,
     });
 
-    // Delete the request from 'StoragePointRequests' collection
     await FirebaseFirestore.instance.collection('StoragePointRequests').doc(requestId).delete();
 
     ScaffoldMessenger.of(context).showSnackBar(
@@ -114,7 +112,6 @@ class StoragePointRequestsPage extends StatelessWidget {
   }
 
   Future<void> _disapproveStoragePoint(BuildContext context, String requestId) async {
-    // Delete the request from 'StoragePointRequests' collection
     await FirebaseFirestore.instance.collection('StoragePointRequests').doc(requestId).delete();
 
     ScaffoldMessenger.of(context).showSnackBar(

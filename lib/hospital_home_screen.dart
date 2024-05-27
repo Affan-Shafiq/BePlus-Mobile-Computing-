@@ -94,7 +94,9 @@ class _HospitalHomePageState extends State<HospitalHomePage> {
       label: Text(
         bloodType,
         style: TextStyle(
-          color: _selectedBloodType == bloodType ? const Color.fromRGBO(144, 50, 60, 1) : const Color.fromRGBO(249, 234, 225, 1),
+          color: _selectedBloodType == bloodType
+              ? const Color.fromRGBO(144, 50, 60, 1)
+              : const Color.fromRGBO(249, 234, 225, 1),
         ),
       ),
       selected: _selectedBloodType == bloodType,
@@ -143,7 +145,9 @@ class _HospitalHomePageState extends State<HospitalHomePage> {
               label: Text(
                 location,
                 style: TextStyle(
-                  color: _selectedLocation == location ? const Color.fromRGBO(144, 50, 60, 1) : const Color.fromRGBO(249, 234, 225, 1),
+                  color: _selectedLocation == location
+                      ? const Color.fromRGBO(144, 50, 60, 1)
+                      : const Color.fromRGBO(249, 234, 225, 1),
                 ),
               ),
               selected: _selectedLocation == location,

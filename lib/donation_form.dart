@@ -55,7 +55,6 @@ class _DonationFormState extends State<DonationForm> {
     final donorSnapshot = await FirebaseFirestore.instance.collection('Donors').where('cnic', isEqualTo: cnic).get();
 
     if (donorSnapshot.docs.isNotEmpty) {
-      // Update existing donor's data
       final donorDoc = donorSnapshot.docs.first;
       await donorDoc.reference.update({
         'name': _nameController.text,
@@ -119,187 +118,187 @@ class _DonationFormState extends State<DonationForm> {
             child: _availableLocations.isEmpty
                 ? const Center(child: CircularProgressIndicator())
                 : Form(
-              key: _formKey,
-              child: Column(
-                crossAxisAlignment: CrossAxisAlignment.start,
-                children: [
-                  TextFormField(
-                    controller: _nameController,
-                    style: const TextStyle(color: Color.fromRGBO(249, 234, 225, 1)),
-                    decoration: const InputDecoration(
-                      labelText: 'Name',
-                      labelStyle: TextStyle(color: Color.fromRGBO(249, 234, 225, 1)),
-                    ),
-                    validator: (value) {
-                      if (value == null || value.isEmpty) {
-                        return 'Please enter your name';
-                      }
-                      return null;
-                    },
-                  ),
-                  TextFormField(
-                    controller: _phoneNumberController,
-                    style: const TextStyle(color: Color.fromRGBO(249, 234, 225, 1)),
-                    decoration: const InputDecoration(
-                      labelText: 'Phone Number',
-                      labelStyle: TextStyle(color: Color.fromRGBO(249, 234, 225, 1)),
-                    ),
-                    validator: (value) {
-                      if (value == null || value.isEmpty) {
-                        return 'Please enter your phone number';
-                      }
-                      return null;
-                    },
-                  ),
-                  TextFormField(
-                    controller: _cnicController,
-                    style: const TextStyle(color: Color.fromRGBO(249, 234, 225, 1)),
-                    decoration: const InputDecoration(
-                      labelText: 'CNIC',
-                      labelStyle: TextStyle(color: Color.fromRGBO(249, 234, 225, 1)),
-                    ),
-                    validator: (value) {
-                      if (value == null || value.isEmpty) {
-                        return 'Please enter your CNIC';
-                      }
-                      return null;
-                    },
-                  ),
-                  const SizedBox(height: 20),
-                  const Text(
-                    'Select Location:',
-                    style: TextStyle(fontSize: 16, color: Color.fromRGBO(249, 234, 225, 1)),
-                  ),
-                  const SizedBox(height: 10),
-                  Wrap(
-                    spacing: 10,
-                    children: _availableLocations.map((location) {
-                      final data = location.data() as Map<String, dynamic>;
-                      return ChoiceChip(
-                        label: Text(data['name']),
-                        backgroundColor: const Color.fromRGBO(144, 50, 60, 1),
-                        selected: _selectedLocation == location['name'],
-                        selectedColor: const Color.fromRGBO(249, 234, 225, 1),
-                        labelStyle: TextStyle(
-                          color: _selectedLocation == location['name']
-                              ? const Color.fromRGBO(144, 50, 60, 1)
-                              : const Color.fromRGBO(249, 234, 225, 1),
-                        ),
-                        onSelected: (selected) {
-                          setState(() {
-                            _selectedLocation = selected ? location['name'] : '';
-                            if (selected) {
-                              _fetchAvailableSlots(location);
-                            }
-                          });
-                        },
-                      );
-                    }).toList(),
-                  ),
-                  const SizedBox(height: 20),
-                  if (_selectedLocation.isNotEmpty) ...[
-                    const Text(
-                      'Select Time:',
-                      style: TextStyle(fontSize: 16, color: Color.fromRGBO(249, 234, 225, 1)),
-                    ),
-                    const SizedBox(height: 10),
-                    Wrap(
-                      spacing: 10,
-                      children: _availableTimes.map((time) {
-                        return ChoiceChip(
-                          label: Text(time),
-                          backgroundColor: const Color.fromRGBO(144, 50, 60, 1),
-                          selected: _selectedTime == time,
-                          selectedColor: const Color.fromRGBO(249, 234, 225, 1),
-                          labelStyle: TextStyle(
-                            color: _selectedTime == time
-                                ? const Color.fromRGBO(144, 50, 60, 1)
-                                : const Color.fromRGBO(249, 234, 225, 1),
+                    key: _formKey,
+                    child: Column(
+                      crossAxisAlignment: CrossAxisAlignment.start,
+                      children: [
+                        TextFormField(
+                          controller: _nameController,
+                          style: const TextStyle(color: Color.fromRGBO(249, 234, 225, 1)),
+                          decoration: const InputDecoration(
+                            labelText: 'Name',
+                            labelStyle: TextStyle(color: Color.fromRGBO(249, 234, 225, 1)),
                           ),
-                          onSelected: (selected) {
-                            setState(() {
-                              _selectedTime = selected ? time : '';
-                            });
+                          validator: (value) {
+                            if (value == null || value.isEmpty) {
+                              return 'Please enter your name';
+                            }
+                            return null;
                           },
-                        );
-                      }).toList(),
+                        ),
+                        TextFormField(
+                          controller: _phoneNumberController,
+                          style: const TextStyle(color: Color.fromRGBO(249, 234, 225, 1)),
+                          decoration: const InputDecoration(
+                            labelText: 'Phone Number',
+                            labelStyle: TextStyle(color: Color.fromRGBO(249, 234, 225, 1)),
+                          ),
+                          validator: (value) {
+                            if (value == null || value.isEmpty) {
+                              return 'Please enter your phone number';
+                            }
+                            return null;
+                          },
+                        ),
+                        TextFormField(
+                          controller: _cnicController,
+                          style: const TextStyle(color: Color.fromRGBO(249, 234, 225, 1)),
+                          decoration: const InputDecoration(
+                            labelText: 'CNIC',
+                            labelStyle: TextStyle(color: Color.fromRGBO(249, 234, 225, 1)),
+                          ),
+                          validator: (value) {
+                            if (value == null || value.isEmpty) {
+                              return 'Please enter your CNIC';
+                            }
+                            return null;
+                          },
+                        ),
+                        const SizedBox(height: 20),
+                        const Text(
+                          'Select Location:',
+                          style: TextStyle(fontSize: 16, color: Color.fromRGBO(249, 234, 225, 1)),
+                        ),
+                        const SizedBox(height: 10),
+                        Wrap(
+                          spacing: 10,
+                          children: _availableLocations.map((location) {
+                            final data = location.data() as Map<String, dynamic>;
+                            return ChoiceChip(
+                              label: Text(data['name']),
+                              backgroundColor: const Color.fromRGBO(144, 50, 60, 1),
+                              selected: _selectedLocation == location['name'],
+                              selectedColor: const Color.fromRGBO(249, 234, 225, 1),
+                              labelStyle: TextStyle(
+                                color: _selectedLocation == location['name']
+                                    ? const Color.fromRGBO(144, 50, 60, 1)
+                                    : const Color.fromRGBO(249, 234, 225, 1),
+                              ),
+                              onSelected: (selected) {
+                                setState(() {
+                                  _selectedLocation = selected ? location['name'] : '';
+                                  if (selected) {
+                                    _fetchAvailableSlots(location);
+                                  }
+                                });
+                              },
+                            );
+                          }).toList(),
+                        ),
+                        const SizedBox(height: 20),
+                        if (_selectedLocation.isNotEmpty) ...[
+                          const Text(
+                            'Select Time:',
+                            style: TextStyle(fontSize: 16, color: Color.fromRGBO(249, 234, 225, 1)),
+                          ),
+                          const SizedBox(height: 10),
+                          Wrap(
+                            spacing: 10,
+                            children: _availableTimes.map((time) {
+                              return ChoiceChip(
+                                label: Text(time),
+                                backgroundColor: const Color.fromRGBO(144, 50, 60, 1),
+                                selected: _selectedTime == time,
+                                selectedColor: const Color.fromRGBO(249, 234, 225, 1),
+                                labelStyle: TextStyle(
+                                  color: _selectedTime == time
+                                      ? const Color.fromRGBO(144, 50, 60, 1)
+                                      : const Color.fromRGBO(249, 234, 225, 1),
+                                ),
+                                onSelected: (selected) {
+                                  setState(() {
+                                    _selectedTime = selected ? time : '';
+                                  });
+                                },
+                              );
+                            }).toList(),
+                          ),
+                          const SizedBox(height: 20),
+                          const Text(
+                            'Select Date:',
+                            style: TextStyle(fontSize: 16, color: Color.fromRGBO(249, 234, 225, 1)),
+                          ),
+                          const SizedBox(height: 10),
+                          TableCalendar(
+                            focusedDay: _selectedDay,
+                            firstDay: DateTime.now(),
+                            lastDay: DateTime.now().add(const Duration(days: 365)),
+                            calendarFormat: CalendarFormat.month,
+                            headerStyle: const HeaderStyle(
+                              titleTextStyle: TextStyle(
+                                color: Color.fromRGBO(249, 234, 225, 1),
+                              ),
+                              formatButtonVisible: false,
+                              leftChevronIcon: Icon(
+                                Icons.chevron_left,
+                                color: Color.fromRGBO(249, 234, 225, 1),
+                              ),
+                              rightChevronIcon: Icon(
+                                Icons.chevron_right,
+                                color: Color.fromRGBO(249, 234, 225, 1),
+                              ),
+                            ),
+                            daysOfWeekStyle: const DaysOfWeekStyle(
+                              weekdayStyle: TextStyle(
+                                color: Color.fromRGBO(249, 234, 225, 1),
+                              ),
+                              weekendStyle: TextStyle(
+                                color: Color.fromRGBO(249, 234, 225, 1),
+                              ),
+                            ),
+                            calendarStyle: const CalendarStyle(
+                              defaultTextStyle: TextStyle(
+                                color: Color.fromRGBO(249, 234, 225, 1),
+                              ),
+                              selectedTextStyle: TextStyle(
+                                color: Color.fromRGBO(143, 61, 65, 1),
+                              ),
+                              todayTextStyle: TextStyle(
+                                color: Color.fromRGBO(43, 61, 65, 1),
+                              ),
+                              outsideTextStyle: TextStyle(
+                                color: Color.fromRGBO(43, 61, 65, 1),
+                              ),
+                              outsideDaysVisible: true,
+                              selectedDecoration: BoxDecoration(
+                                shape: BoxShape.circle,
+                                color: Color.fromRGBO(249, 234, 225, 1),
+                              ),
+                            ),
+                            onDaySelected: (selectedDay, focusedDay) {
+                              setState(() {
+                                _selectedDay = selectedDay;
+                              });
+                            },
+                          ),
+                          const SizedBox(height: 20),
+                        ],
+                        Center(
+                          child: SizedBox(
+                            width: double.infinity,
+                            child: ElevatedButton(
+                              onPressed: _submitForm,
+                              style: ElevatedButton.styleFrom(
+                                primary: const Color.fromRGBO(249, 234, 225, 1),
+                                onPrimary: const Color.fromRGBO(144, 50, 60, 1),
+                                padding: const EdgeInsets.symmetric(vertical: 15),
+                              ),
+                              child: const Text('Submit'),
+                            ),
+                          ),
+                        ),
+                      ],
                     ),
-                    const SizedBox(height: 20),
-                    const Text(
-                      'Select Date:',
-                      style: TextStyle(fontSize: 16, color: Color.fromRGBO(249, 234, 225, 1)),
-                    ),
-                    const SizedBox(height: 10),
-                    TableCalendar(
-                      focusedDay: _selectedDay,
-                      firstDay: DateTime.now(),
-                      lastDay: DateTime.now().add(const Duration(days: 365)),
-                      calendarFormat: CalendarFormat.month,
-                      headerStyle: const HeaderStyle(
-                        titleTextStyle: TextStyle(
-                          color: Color.fromRGBO(249, 234, 225, 1),
-                        ),
-                        formatButtonVisible: false,
-                        leftChevronIcon: Icon(
-                          Icons.chevron_left,
-                          color: Color.fromRGBO(249, 234, 225, 1),
-                        ),
-                        rightChevronIcon: Icon(
-                          Icons.chevron_right,
-                          color: Color.fromRGBO(249, 234, 225, 1),
-                        ),
-                      ),
-                      daysOfWeekStyle: const DaysOfWeekStyle(
-                        weekdayStyle: TextStyle(
-                          color: Color.fromRGBO(249, 234, 225, 1),
-                        ),
-                        weekendStyle: TextStyle(
-                          color: Color.fromRGBO(249, 234, 225, 1),
-                        ),
-                      ),
-                      calendarStyle: const CalendarStyle(
-                        defaultTextStyle: TextStyle(
-                          color: Color.fromRGBO(249, 234, 225, 1),
-                        ),
-                        selectedTextStyle: TextStyle(
-                          color: Color.fromRGBO(143, 61, 65, 1),
-                        ),
-                        todayTextStyle: TextStyle(
-                          color: Color.fromRGBO(43, 61, 65, 1),
-                        ),
-                        outsideTextStyle: TextStyle(
-                          color: Color.fromRGBO(43, 61, 65, 1),
-                        ),
-                        outsideDaysVisible: true,
-                        selectedDecoration: BoxDecoration(
-                          shape: BoxShape.circle,
-                          color: Color.fromRGBO(249, 234, 225, 1),
-                        ),
-                      ),
-                      onDaySelected: (selectedDay, focusedDay) {
-                        setState(() {
-                          _selectedDay = selectedDay;
-                        });
-                      },
-                    ),
-                    const SizedBox(height: 20),
-                  ],
-                  Center(
-                    child: SizedBox(
-                      width: double.infinity,
-                      child: ElevatedButton(
-                        onPressed: _submitForm,
-                        style: ElevatedButton.styleFrom(
-                          primary: const Color.fromRGBO(249, 234, 225, 1),
-                          onPrimary: const Color.fromRGBO(144, 50, 60, 1),
-                          padding: const EdgeInsets.symmetric(vertical: 15),
-                        ),
-                        child: const Text('Submit'),
-                      ),
-                    ),
-                  ),
-                ],
-              ),
             ),
           ),
         ),
