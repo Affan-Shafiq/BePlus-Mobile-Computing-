@@ -35,7 +35,6 @@ class _AdminHomeScreenState extends State<AdminHomeScreen> {
     final hospitalRequestsSnapshot = await FirebaseFirestore.instance.collection('HospitalRequests').get();
     final storagePointRequestsSnapshot = await FirebaseFirestore.instance.collection('StoragePointRequests').get();
     final bloodStoredSnapshot = await FirebaseFirestore.instance.collection('BloodStored').get();
-    final hammadSnapshot = await FirebaseFirestore.instance.collection('Hammad').get();
 
     final Map<String, int> bloodTypeCounts = {};
     for (var doc in bloodStoredSnapshot.docs) {
@@ -47,13 +46,6 @@ class _AdminHomeScreenState extends State<AdminHomeScreen> {
       }
     }
 
-    final List<Map<String, dynamic>> hammadData = hammadSnapshot.docs.map((doc) {
-      return {
-        'cnic': doc['cnic'],
-        'gpa': doc['gpa'],
-      };
-    }).toList();
-
     setState(() {
       _appointmentsCount = appointmentsSnapshot.size;
       _donorsCount = donorsSnapshot.size;
@@ -63,7 +55,6 @@ class _AdminHomeScreenState extends State<AdminHomeScreen> {
       _hospitalRequestsCount = hospitalRequestsSnapshot.size;
       _storagePointRequestsCount = storagePointRequestsSnapshot.size;
       _bloodStoredCount = bloodTypeCounts;
-      _hammadData = hammadData;
     });
   }
 
@@ -99,7 +90,6 @@ class _AdminHomeScreenState extends State<AdminHomeScreen> {
               _buildInteractiveSummaryCard('Hospital Requests', _hospitalRequestsCount.toString(), HospitalRequestsPage()),
               _buildInteractiveSummaryCard('Storage Point Requests', _storagePointRequestsCount.toString(), StoragePointRequestsPage()),
               _buildBloodStoredCard(),
-              _buildHammadCard(),
             ],
           ),
         ),
@@ -174,27 +164,6 @@ class _AdminHomeScreenState extends State<AdminHomeScreen> {
             );
           }).toList(),
         ),
-      ),
-    );
-  }
-
-  Widget _buildHammadCard() {
-    return Card(
-      color: const Color.fromRGBO(249, 234, 225, 1),
-      margin: const EdgeInsets.symmetric(vertical: 8.0),
-      child: Column(
-        children: _hammadData.map((data) {
-          return ListTile(
-            title: Text(
-              'CNIC: ${data['cnic']}',
-              style: const TextStyle(color: Color.fromRGBO(144, 50, 60, 1)),
-            ),
-            subtitle: Text(
-              'GPA: ${data['gpa']}',
-              style: const TextStyle(color: Color.fromRGBO(144, 50, 60, 1)),
-            ),
-          );
-        }).toList(),
       ),
     );
   }
