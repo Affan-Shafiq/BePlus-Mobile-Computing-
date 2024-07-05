@@ -113,8 +113,8 @@ class _BloodBankHomeScreenState extends State<BloodBankHomeScreen> {
                       ElevatedButton(
                         onPressed: () => _collectBlood(doc.id, donorName, phoneNumber, cnic, appointmentDate),
                         style: ElevatedButton.styleFrom(
-                          primary: const Color.fromRGBO(144, 50, 60, 1),
-                          onPrimary: const Color.fromRGBO(249, 234, 225, 1),
+                          foregroundColor: const Color.fromRGBO(249, 234, 225, 1),
+                          backgroundColor: const Color.fromRGBO(144, 50, 60, 1),
                         ),
                         child: const Text('Blood Collected'),
                       ),
@@ -235,8 +235,8 @@ class _BloodBankHomeScreenState extends State<BloodBankHomeScreen> {
                       ElevatedButton(
                         onPressed: () => _approveRequest(doc.id, bloodType, hospitalName),
                         style: ElevatedButton.styleFrom(
-                          primary: const Color.fromRGBO(144, 50, 60, 1),
-                          onPrimary: const Color.fromRGBO(249, 234, 225, 1),
+                          foregroundColor: const Color.fromRGBO(249, 234, 225, 1),
+                          backgroundColor: const Color.fromRGBO(144, 50, 60, 1),
                         ),
                         child: const Text('Approve Request'),
                       ),

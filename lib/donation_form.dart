@@ -289,8 +289,8 @@ class _DonationFormState extends State<DonationForm> {
                             child: ElevatedButton(
                               onPressed: _submitForm,
                               style: ElevatedButton.styleFrom(
-                                primary: const Color.fromRGBO(249, 234, 225, 1),
-                                onPrimary: const Color.fromRGBO(144, 50, 60, 1),
+                                foregroundColor: const Color.fromRGBO(144, 50, 60, 1),
+                                backgroundColor: const Color.fromRGBO(249, 234, 225, 1),
                                 padding: const EdgeInsets.symmetric(vertical: 15),
                               ),
                               child: const Text('Submit'),

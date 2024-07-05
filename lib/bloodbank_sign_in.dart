@@ -76,8 +76,8 @@ class _BloodBankSignInScreenState extends State<BloodBankSignInScreen> {
               ElevatedButton(
                 onPressed: signIn,
                 style: ElevatedButton.styleFrom(
-                  primary: Color.fromRGBO(249, 234, 225, 1),
-                  onPrimary: Color.fromRGBO(144, 50, 60, 1),
+                  foregroundColor: Color.fromRGBO(144, 50, 60, 1),
+                  backgroundColor: Color.fromRGBO(249, 234, 225, 1),
                   padding: const EdgeInsets.symmetric(horizontal: 50, vertical: 15),
                 ),
                 child: const Text(
@@ -93,7 +93,7 @@ class _BloodBankSignInScreenState extends State<BloodBankSignInScreen> {
                   );
                 },
                 style: TextButton.styleFrom(
-                  primary: Color.fromRGBO(249, 234, 225, 1),
+                  foregroundColor: Color.fromRGBO(249, 234, 225, 1),
                 ),
                 child: const Text('Don\'t have an account? Sign up'),
               ),

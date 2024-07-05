@@ -73,8 +73,8 @@ class _HospitalHomePageState extends State<HospitalHomePage> {
                   ElevatedButton(
                     onPressed: _saveBloodRequest,
                     style: ElevatedButton.styleFrom(
-                      primary: const Color.fromRGBO(249, 234, 225, 1),
-                      onPrimary: const Color.fromRGBO(144, 50, 60, 1),
+                      foregroundColor: const Color.fromRGBO(144, 50, 60, 1),
+                      backgroundColor: const Color.fromRGBO(249, 234, 225, 1),
                       padding: const EdgeInsets.symmetric(horizontal: 40, vertical: 20),
                     ),
                     child: const Text('Request Blood'),

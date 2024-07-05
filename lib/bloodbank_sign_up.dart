@@ -114,8 +114,8 @@ class _BloodBankSignUpScreenState extends State<BloodBankSignUpScreen> {
               ElevatedButton(
                 onPressed: signUp,
                 style: ElevatedButton.styleFrom(
-                  primary: Color.fromRGBO(249, 234, 225, 1),
-                  onPrimary: Color.fromRGBO(144, 50, 60, 1),
+                  foregroundColor: Color.fromRGBO(144, 50, 60, 1),
+                  backgroundColor: Color.fromRGBO(249, 234, 225, 1),
                   padding: const EdgeInsets.symmetric(horizontal: 50, vertical: 15),
                 ),
                 child: const Text(
@@ -131,7 +131,7 @@ class _BloodBankSignUpScreenState extends State<BloodBankSignUpScreen> {
                   );
                 },
                 style: TextButton.styleFrom(
-                  primary: Color.fromRGBO(249, 234, 225, 1),
+                  foregroundColor: Color.fromRGBO(249, 234, 225, 1),
                 ),
                 child: const Text('Already have an account? Sign in'),
               ),

@@ -68,16 +68,16 @@ class StoragePointRequestsPage extends StatelessWidget {
                           children: [
                             ElevatedButton(
                               style: ElevatedButton.styleFrom(
-                                primary: const Color.fromRGBO(144, 50, 60, 1),
-                                onPrimary: Color.fromRGBO(249, 234, 225, 1),
+                                foregroundColor: Color.fromRGBO(249, 234, 225, 1),
+                                backgroundColor: const Color.fromRGBO(144, 50, 60, 1),
                               ),
                               onPressed: () => _approveStoragePoint(context, doc.id, username, password, storagePointName, phoneNo),
                               child: const Text('Approve'),
                             ),
                             ElevatedButton(
                               style: ElevatedButton.styleFrom(
-                                primary: Color.fromRGBO(43, 61, 65, 1),
-                                onPrimary: Color.fromRGBO(249, 234, 225, 1),
+                                foregroundColor: Color.fromRGBO(249, 234, 225, 1),
+                                backgroundColor: Color.fromRGBO(43, 61, 65, 1),
                               ),
                               onPressed: () => _disapproveStoragePoint(context, doc.id),
                               child: const Text('Disapprove'),

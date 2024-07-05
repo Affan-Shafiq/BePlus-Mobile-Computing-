@@ -76,8 +76,8 @@ class _HospitalSignInScreenState extends State<HospitalSignInScreen> {
               ElevatedButton(
                 onPressed: signIn,
                 style: ElevatedButton.styleFrom(
-                  primary: const Color.fromRGBO(249, 234, 225, 1),
-                  onPrimary: const Color.fromRGBO(144, 50, 60, 1),
+                  foregroundColor: const Color.fromRGBO(144, 50, 60, 1),
+                  backgroundColor: const Color.fromRGBO(249, 234, 225, 1),
                   padding: const EdgeInsets.symmetric(horizontal: 50, vertical: 15),
                 ),
                 child: const Text(
@@ -93,7 +93,7 @@ class _HospitalSignInScreenState extends State<HospitalSignInScreen> {
                   );
                 },
                 style: TextButton.styleFrom(
-                  primary: const Color.fromRGBO(249, 234, 225, 1),
+                  foregroundColor: const Color.fromRGBO(249, 234, 225, 1),
                 ),
                 child: const Text('Don\'t have an account? Sign up'),
               ),
